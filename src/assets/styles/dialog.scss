@@ -1,0 +1,159 @@
+.hl-dialog {
+  position: relative;
+  .hl-panel.borderless > .panel-header + .panel-body {
+    padding-bottom: 0 !important;
+  }
+  // 弹窗标题无border
+  .custom-dialog-header {
+    border-bottom: none;
+  }
+  .inner-pannel-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-top: 0;
+  }
+  .hl-panel .panel-body {
+    --panel-body-padding: var(--xl);
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .dialog-no-600 {
+    max-height: fit-content !important;
+    overflow: auto !important;
+    padding-top: 0;
+    padding-bottom: var(--lg2);
+  }
+  
+
+  &.md-dialog {
+    .hl-panel {
+      width: 460px;
+    }
+  }
+  &.at-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .hl-panel .panel-header:first-child {
+      padding-left: var(--xxl);
+      padding-right: var(--xxl);
+    }
+  }
+
+  .panel-footer {
+    box-shadow: 0px -2px 7px 0px rgba(0, 0, 0, 0.06);
+    margin-top: var(--md);
+    border-top: calc(var(--xxs) * 0.25) solid #ededed;
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-bottom: 28px;
+  }
+
+  .hl-panel.borderless > .panel-footer {
+    padding-top: var(--form-md);
+  }
+
+  .dialog-search-input {
+    position: absolute;
+    width: 100%;
+    top: 64px;
+    left: 0;
+    padding: 20px;
+    z-index: 2;
+  }
+  .tree-panel {
+    margin-top: 64px;
+  }
+}
+.hl-panel > .panel-header .panel-header-right .panel-close {
+  margin-left: 0 !important;
+  transform: translateX(0) !important;
+}
+.hl-message-box {
+  .hl-panel .panel-header:first-child {
+    padding-left: var(--xxl);
+    padding-right: var(--xxl);
+  }
+  .panel-close {
+    margin-left: 0 !important;
+    transform: translateX(0) !important;
+  }
+  .hl-panel .panel-body {
+    padding: 0 var(--xxl) var(--xxl);
+    text-align: left;
+    span {
+      display: flex;
+      align-items: center;
+      height: 24px;
+      &::before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url("~@/assets/images/warn.png") no-repeat;
+        background-size: 100% 100%;
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+  }
+  .hl-panel.borderless > .panel-footer {
+    justify-content: right !important;
+    padding: 0 var(--xxl) var(--xxl);
+  }
+}
+.hl-overlay {
+  background-color: transparent;
+}
+
+.not-footer-dialog {
+  padding: var(--panel-body-padding) !important;
+}
+
+.hl-message-box {
+  .hl-panel {
+    border-radius: 2px;
+  }
+}
+
+.radio-tabs {
+  .is-radio + .is-radio {
+    button {
+      border-left-width: 0;
+    }
+  }
+  .is-checked {
+    button {
+      border-left-width: 1px !important;
+    }
+  }
+}
+// 弹窗内部有panel，头部padding
+.dialog-inner-panel {
+    .panel-header {
+      padding-left: var(--lg) !important;
+      padding-right: var(--lg) !important;
+    }
+}
+// 弹窗内部有panel，body padding
+.hl-panel.borderless.dialog-inner-panel > .panel-header + .panel-body {
+  padding-left: var(--lg) !important;
+  padding-right: var(--lg) !important;
+  padding-bottom: var(--lg) !important;
+  height: auto !important;
+  max-height: auto !important;
+}
+// common-detail 弹窗内部样式
+.dialog-inner-detail {
+  .panel-header {
+    padding-left: var(--lg) !important;
+    padding-right: var(--lg) !important;
+  }
+  .panel-body {
+    padding: 0 !important;
+  }
+}
+
+.dialog-footer-margin-top-0 {
+  margin-top: 0 !important;
+}

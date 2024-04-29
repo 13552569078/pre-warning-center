@@ -1,0 +1,89 @@
+$layoutHeaderHeight: 64px; // 头部高度
+$layoutSubHeaderHeight: 54px;
+
+:root {
+  --factor-bg-color: #F5F8FA;
+  --text-title: #4b4b4b;
+  --layout-wujie-height: 41px;
+}
+
+.divider {
+  border-color: #f2f2f2 !important;
+  &.verticle {
+    border-right: 1px solid;
+    height: auto;
+    margin: 0 size(10px);
+    width: 1px;
+  }
+  &.horizon {
+    border-bottom: 1px solid;
+    height: 1px;
+    width: 100%;
+    padding: size(10px) 0;
+  }
+}
+
+.border-line {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.flex-no-grow {
+  flex-grow: 0 !important;
+}
+
+// hover
+.hover-wrap {
+  .hover-hide {
+    display: block;
+  }
+  .hover-show {
+    display: none;
+  }
+  &:hover {
+    .hover-hide {
+      display: none;
+    }
+    .hover-show {
+      display: block;
+    }
+  }
+}
+
+.affix-bottom {
+  background-color: white;
+  z-index: 99;
+  margin-top: -20px;
+}
+
+/* 滚动条样式美化 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.4);;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+
+.x-map-container {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}

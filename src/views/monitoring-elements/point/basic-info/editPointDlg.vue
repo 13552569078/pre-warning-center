@@ -1,0 +1,243 @@
+<template>
+    <!-- 新增类型 -->
+    <hl-dialog v-model="dialogVisible" width="600px" :close-on-click-modal="false" title="监测点位基本信息" borderless @close="emit('close')">
+    <hl-form ref="formRef" :model="formData" :rules="getBasicFormRules(formData)" :label-position="['items-left', 'items-left']" gap="var(--lg)" item-gap="var(--lg2)">
+        <hl-group full gap="var(--xxl)">
+          <hl-form-item label="监测点名称" prop="unitName">
+            <hl-input v-model.trim="formData.unitName" placeholder="监测点名称" maxlength="20" show-word-limit block />
+          </hl-form-item>
+
+          <!-- <hl-form-item label="监测点编码" prop="unitCode">
+            <hl-input v-model.trim="formData.unitCode" placeholder="监测点编码" maxlength="20" show-word-limit block />
+          </hl-form-item> -->
+        </hl-group>
+
+        <hl-form-item :label="`${$t('region')}:`" prop="regionName">
+          <hl-input v-model.trim="formData.regionName" :placeholder="`${$t('region')}:`" block disabled />
+        </hl-form-item>
+
+        <hl-form-item label="点位类型" v-project-item prop="unitType">
+          <uni-selector v-model="formData.unitType" placeholder="请选择点位类型" dictType="UNIT_TYPE_CODE"/>
+        </hl-form-item>
+
+        <hl-form-item label="设施类型" v-project-item prop="facilityType">
+          <facility-type v-model="formData.facilityType" />
+        </hl-form-item>
+
+        <hl-form-item label="设施名称" v-project-item prop="facilityId">
+          <hl-select
+            v-model="formData.facilityId"
+            clearable
+            placeholder="请选择设施">
+            <hl-option
+              v-for="item in optionFacility"
+              :key="item.name"
+              :label="item.value"
+              :value="item.name"
+            />
+          </hl-select>
+        </hl-form-item>
+
+        <hl-form-item label="位置" prop="address">
+          <hl-input v-model.trim="formData.address" placeholder="位置" maxlength="100" block class="address-input">
+            <template #suffix>
+              <hl-icon class="cursor-pointer" @click="locationDialogVisiable = true"><TwoPoint /></hl-icon>
+            </template>
+          </hl-input>
+        </hl-form-item>
+
+        <hl-form-item :label="`${$t('longlatitude')}:`" prop="longLat">
+          <hl-group block align="items-between itms-center itmes-middle">
+            <hl-group>
+              <hl-input v-model.trim="formData.longitude" :placeholder="`${$t('longitude')}:`" block maxlength="10" />
+            </hl-group>
+            <hl-group class="text-light m-l-md m-r-md itmes-middle"> - </hl-group>
+            <hl-group>
+              <hl-input v-model.trim="formData.latitude" :placeholder="`${$t('latitude')}:`" block maxlength="10" />
+            </hl-group>
+          </hl-group>
+        </hl-form-item>
+        <hl-form-item label="相对坐标（二维）:">
+          <hl-input v-model.trim="formData.d2x" placeholder="x" maxlength="20" style="width: 150px;"/> &emsp;-&emsp;
+          <hl-input v-model.trim="formData.d2y" placeholder="y" maxlength="20" style="width: 150px;"/>
+        </hl-form-item>
+        <hl-form-item label="相对坐标（三维）:">
+          <hl-input v-model.trim="formData.d3x" placeholder="x" maxlength="20" style="width: 150px;"/> &emsp;-&emsp;
+          <hl-input v-model.trim="formData.d3y" placeholder="y" maxlength="20" style="width: 150px;"/> &emsp;-&emsp;
+          <hl-input v-model.trim="formData.d3z" placeholder="z" maxlength="20" style="width: 150px;"/>
+        </hl-form-item>
+
+        <hl-form-item label="高程" v-project-item prop="altitude">
+          <hl-input v-model.trim="formData.altitude" placeholder="高程（单位：米）" block />
+        </hl-form-item>
+
+        <hl-form-item label="高程基准" v-project-item prop="altitudeDatum">
+          <uni-selector v-model="formData.altitudeDatum" placeholder="请选择高程基准" dictType="ALTITUD_EDATUM_CODE"/>
+        </hl-form-item>
+
+        <hl-form-item label="所在区域" v-project-item prop="streetAreaCode">
+          <search-area ref="areaSelectorRef" v-model="formData.streetAreaCode" :is-emit-area-code="true"></search-area>
+        </hl-form-item>
+
+        <hl-form-item label="描述" prop="description">
+          <hl-input v-model.trim="formData.description" native-type="textarea" :rows="3" block maxlength="500" show-word-limit />
+        </hl-form-item>
+
+        <hl-form-item label="场景照片:">
+          <file-uploader v-model="fileList"/>
+        </hl-form-item>
+
+      </hl-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <hl-button @click="emit('close')" class="m-r-md">取消</hl-button>
+        <hl-button type="primary" @click="ok"> {{ pointData.pointId ? '保存' : '新增' }} </hl-button>
+      </span>
+    </template>
+  </hl-dialog>
+  <location-map
+    :visiable="locationDialogVisiable"
+    :mark-data="formData.regionGisOutlineVo.gisOutline"
+    :longitude="formData.longitude"
+    :latitude="formData.latitude"
+    @locationClose="locationDialogVisiable = false"
+    @locationSubmit="locationSubmit"></location-map>
+
+  <hl-dialog v-model="dialogPreviewVisible" title="查看图片" width="600px" append-to-body>
+    <hl-thumb :src="dialogImageUrl" class="full" />
+  </hl-dialog>
+</template>
+<script lang="ts" setup>
+import { onMounted, reactive, ref, watch, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { LocationMap } from '@/components';
+import UniSelector from '@/views/monitoring-config/components/universal-dict-selector.vue';
+import FacilityType from '@/views/monitoring-config/components/facilities-type.vue';
+import type { IlocalInfo } from '@/types/local-info';
+import { apiEquipmentObj } from '@/apis/modules/equipment';
+import { apiFacilityObj } from '@/apis/modules/facility';
+import { IlistSpace } from '@/apis/modules/equipment/model';
+import { apiMonitorPointObj } from '@/apis/modules/monitor-unit';
+import EquipmentSelector from '@/views/monitoring-elements/equipment/index-selector.vue';
+import { getBasicFormRules } from '../utils';
+import { emitChangeFn, HlMessage } from 'hongluan-ui';
+
+const props = defineProps({
+  pointData: {
+    type: Object as any,
+    default: () => ({})
+  }
+});
+const emit = defineEmits(['close']);
+
+interface UploadUserFile {
+  name: string;
+  url: string;
+  id: string;
+}
+
+const route = useRoute();
+const router = useRouter();
+
+const dialogImageUrl = ref('');
+const dialogPreviewVisible = ref(false);
+
+const equipList = ref<IlistSpace.Data[]>([]);
+const optionFacility = ref();
+const locationDialogVisiable = ref(false);
+const formRef = ref();
+const formData = reactive({
+  unitName: '',
+  unitCode: '',
+  regionName: props.pointData.regionTypeName, // props.pointData.regionTypeName
+  regionId: props.pointData.regionId as string,
+  address: props.pointData.address,
+  longitude: props.pointData.longitude as string,
+  latitude: props.pointData.latitude as string,
+  description: '',
+  equipIdList: [] as string[],
+  equipNameList: [] as string[],
+  unitType: '',
+  facilityType: '',
+  altitudeDatum: '',
+  altitude: '',
+  facilityId: '',
+  facilityIdList: [] as string[],
+  fileIds: '',
+  streetAreaCode: '',
+  streetAreaCodeName: '',
+  regionGisOutlineVo: {},
+
+  d2x: '',
+  d2y: '',
+  d3x: '',
+  d3y: '',
+  d3z: ''
+});
+
+watch(() => formData.facilityType, type => {
+  fetchFacility(type);
+});
+
+const dialogVisible = ref(true);
+
+const fileList = ref<UploadUserFile[]>([]);
+
+const locationSubmit = (info: IlocalInfo) => {
+  locationDialogVisiable.value = false;
+  Object.assign(formData, info);
+};
+
+const fetchFacility = async(facilityType: string) => {
+  const res = await apiFacilityObj.getListByFacilityType(facilityType);
+  optionFacility.value = res.data;
+};
+
+const ok = () => {
+  formRef.value.validate((valid: boolean) => {
+    if (valid) {
+      formSubmit();
+    } else {
+      console.log('error submit!!');
+      return false;
+    }
+  });
+};
+const formSubmit = async() => {
+  console.log(formData);
+  formData.facilityIdList = formData.facilityId ? [formData.facilityId] : [];
+  formData.fileIds = fileList.value.map((files: UploadUserFile) => {
+    return files.id;
+  }).join();
+  await apiMonitorPointObj.postUpdateUnit(formData);
+  HlMessage.success(props.pointData.pointId ? '修改成功' : '保存成功');
+  emit('close');
+  // router.push({
+  //   name: 'point',
+  //   query: {
+  //     regionId: props.pointData.regionId
+  //   }
+  // });
+};
+
+onMounted(async() => {
+  if (props.pointData.pointId) {
+    const { data } = await apiMonitorPointObj.getBaseInfo(props.pointData.pointId as unknown as number);
+    fileList.value = data.photoFile && data.photoFile.length
+      ? data.photoFile.map(item => {
+        return {
+          ...item,
+          id: item.id,
+          name: item.originalName,
+          url: item.url
+        };
+      })
+      : [];
+    formData.facilityId = data.facilityIdList[0];
+    Object.assign(formData, data);
+  }
+  // 设备列表
+  const { data } = await apiEquipmentObj.list();
+  equipList.value = data;
+});
+</script>

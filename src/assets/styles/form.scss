@@ -1,0 +1,86 @@
+.address-input {
+    .input-affixe {
+      &.suffix {
+        min-height: 100%;
+        min-width: var(--form-md);
+        border-left: var(--input-border-width) solid var(--input-border-color);
+        margin-right:0;
+        background-color: #F9FAFE;
+      }
+    }
+  }
+  // 解决select宽度问题
+  .hl-input-select {
+    .select-trigger {
+      width: 100%;
+    }
+  }
+// 超出limit隐藏 上传按钮
+  .hide-upload-btn {
+    .handle-card{
+      display: none;
+    }
+  }
+
+  .hl-checkbox.is-checked {
+    border: 1px solid rgba(54,164,255,0.15);
+  }
+
+  .form-size {
+    width: 1220px;
+  }
+  .form-item-size {
+    width: 600px !important;
+  }
+
+  .search-form-field .form-content .date-daterange,   .search-form-field .form-content .date-datetimerange {
+    width: 400px !important;
+  }
+
+  .hl-selector .hl-input:not(.is-remote).is-disabled .input-affixe.suffix, .hl-input-select .hl-input:not(.is-remote).is-disabled .input-affixe.suffix {
+    background: #F1F3F8 !important;
+  }
+
+  .hl-form .form-label > * {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .hl-form .form-label {
+    align-items: center;
+  }
+
+  .hl-switch {
+    color: #4B4B4B;
+    &.is-checked {
+        // 开启状态
+        .core {
+            background-color: #4cc09e;
+            border-color: #4cc09e;
+            &::after {
+              display: inline-block;
+              content: "";
+              width: 1px;
+              height: 8px;
+              top: 2px;
+              left: 5px;
+              background-color: #fff;
+              border: none;
+              position: absolute;
+            }
+        }
+    }
+    .core {
+        // 关闭状态
+        &::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 100%;
+            border: 1px solid #fff;
+            position: absolute;
+            top: 3px;
+            right: 2px;
+        }
+    }
+}

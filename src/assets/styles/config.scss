@@ -1,0 +1,208 @@
+// @use "sass:math";
+// @use "sass:map";
+
+// @import '../../../node_modules/hongluan-ui/theme/scss/common/config';
+// @import '../../../node_modules/@hongluan-ui/styles/2.x/fx/spec/config';
+
+// @import '../../../node_modules/hongluan-ui/theme/scss/components';
+// @import '../../../node_modules/hongluan-business-ui/theme/scss/components';
+
+
+// $imgPath: '../../../node_modules/@hongluan-ui/styles/images/';
+// @import '../../../node_modules/@hongluan-ui/styles/2.x/fx/themes/pro/index';
+
+// @import '../../../node_modules/fx-front-framework/theme/index.scss';
+
+// --------新老配置分割线---------
+@use "sass:math";
+@use "sass:map";
+
+@import '../../../node_modules/hongluan-ui/theme/scss/common/config';
+@import '../../../node_modules/@hongluan-ui/styles/2.x/fx/spec/config';
+
+@import '../../../node_modules/hongluan-ui/theme/scss/components';
+@import '../../../node_modules/hongluan-business-ui/theme/scss/components';
+
+
+$imgPath: '../../../node_modules/@hongluan-ui/styles/images/';
+@import '../../../node_modules/@hongluan-ui/styles/2.x/fx/themes/pro/index';
+
+@import '../../../node_modules/fx-front-framework/theme/index.scss';
+
+:root {
+  --lg2: 10px;
+  --bg-light: #F9FAFE;
+  --upload-dragger-height: 160px;
+}
+
+.hb-simple-table-list {
+  .hb-table-toolbar, .hb-table-searchbar {
+    padding-top: var(--lg);
+  }
+}
+
+.fx-page-table-v2[header-class="hide"] {
+  > .hl-panel > .panel-header {
+    display: none;
+  }
+}
+
+.monitor-history-data {
+  .search-form-field {
+    .date-datetimerange {
+      width: 400px;
+    }
+  }
+}
+
+// .search-btns-box {
+//   .hl-button.is-disabled {
+//     background-image: none !important;
+//   }
+// }
+
+.indicator-tree {
+  --tree-bg-color: #fff;
+  .tree-start {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.access-table {
+  >.hl-panel {
+    width: 1000px;
+  }
+}
+
+.fixed-table {
+  > .hl-panel {
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+.is-current {
+  > .tree-node-content .tree-node-label {
+    color: #37a4ff;
+  }
+}
+
+.custom-hilight {
+  .is-current {
+    > .tree-node-content .tree-node-label {
+      color: var(--tree-font-color)
+    }
+  }
+}
+
+.custom-tree-node {
+  .tree-node-label {
+    width: 100%;
+  }
+}
+
+.no-padding-top-bottom {
+  padding: 0 var(--panel-body-padding);
+}
+
+.bg-modal {
+  background-color: var(--bg-light);
+}
+
+.hl-dialog .hl-panel .panel-body {
+  --panel-body-padding: var(--xxl) !important;
+}
+
+.full-page-dialog {
+  height: calc(100vh - (var(--layout-header-height) + var(--layout-sub-header-height) + var(--layout-footer-height)) - var(--layout-out-padding) * 6);
+}
+
+.is-in-container {
+  &.full-page {
+    height: 100% !important;
+  }
+}
+
+.dialog-footer, .hl-affix {
+  .hl-button {
+    min-width: 80px;
+  }
+}
+
+.text-link {
+  cursor: pointer;
+}
+
+.hl-tree {
+  --tree-bg-color: transparent;
+  .no-hilight {
+    color: var(--text-regular) !important;
+  }
+}
+
+.search-form-field-1 {
+  height: 100%;
+}
+
+.iframe-fit {
+  height: 100%; // 100%
+  overflow: auto;
+  background: #F3F4FB;
+}
+
+.hl-main-iframe-fit {
+  // min-height: 100vh;
+  .fx-page-table-v2 {
+    height: 100% !important;
+  }
+}
+
+.hl-layout {
+  transition: none;
+  .hl-main {
+    background: #EBF1FA !important;
+  }
+}
+
+.iframe-fit-tab {
+  height: calc(100vh - 72px) !important;
+}
+
+.limit-height {
+  .selector-dropdown {
+    max-height: 220px;
+    overflow: auto;
+  }
+}
+
+.limit-padding {
+  padding: 0;
+}
+
+.user-select-none {
+  user-select: none;
+}
+
+// 解决下拉高度限制 220
+.limit-height {
+  .selector-dropdown {
+    max-height: 380px;
+  }
+}
+
+body {
+  width: 100%!important;
+}
+
+// 表单禁用样式
+.hl-input.is-disabled, .hl-input.is-disabled.is-active, .hl-input.is-disabled.is-focus {
+  border-color: #e7e7e7 !important;
+  background-color: #f1f3f8 !important;
+}
+.hl-form .hl-form-item.is-required:not(.is-no-asterisk).asterisk-left .form-label > *::before {
+  color: #FF5988 !important;
+  top: 3px;
+  position: relative;
+  right: 5px;
+}

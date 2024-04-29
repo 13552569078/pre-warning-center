@@ -1,0 +1,45 @@
+@use 'sass:map';
+
+.#{$layout} {
+  .#{$main} {
+    max-width: 100%;
+  }
+  // --layout-header-height: 64px;
+  // --layout-out-padding: 0;
+  // --navMenu-bg-color-hover: #1f2433;
+  // --page-font-color-Inverse: #ffffff;
+
+  // --layout-aside-width: 260px;
+  // .#{$sub_header} {
+  //   padding: 0 var(--xl) !important;
+  //   border-top: 1px solid #eff2f5 !important;
+  // }
+  // .#{$aside} {
+  //   background: #1f2433;
+  //   .aside-logo {
+  //     background-color: var(--navMenu-bg-color-hover);
+  //     h1 {
+  //       color: var(--page-font-color-Inverse);
+  //     }
+  //   }
+  // }
+}
+html,
+body,
+#app,
+.app-container,
+.iframe-container,
+.iframe-wujie {
+  height: 100%;
+}
+.iframe-wujie {
+  height: 100% !important;
+  &.hl-main {
+    min-height: auto;
+  }
+}
+.iframe-container{
+  &.hl-container{
+    height: 100% !important;
+  }
+}

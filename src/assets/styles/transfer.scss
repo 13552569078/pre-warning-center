@@ -1,0 +1,11 @@
+.hl-transfer {
+  --transfer-height: 300px;
+  .transfer-panel {
+    .panel-header {
+      min-height: unset;
+    }
+    .panel-body {
+      padding: 0;
+    }
+  }
+}

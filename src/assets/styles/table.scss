@@ -1,0 +1,128 @@
+.action-button + .action-button {
+  margin-left: var(--lg);
+}
+.tree-node-content .tree-node-arrow .hl-icon {
+  width: var(--md);
+  height: var(--md);
+}
+.hl-simple-table > thead {
+  color: #202020;
+}
+
+.hl-simple-table th:first-child.first-column-index, .hl-simple-table td:first-child.first-column-index {
+  padding-left: 20px;
+  padding-right: 0px !important;
+  width: 46px !important;
+  max-width: 46px !important;
+  min-width: 46px !important;
+  .cell {
+    padding-left: 0px;
+    padding-right: 0px;
+    justify-content: left !important;
+  }
+}
+.custom-table {
+  .hl-simple-table th:first-child.first-column-index, .hl-simple-table td:first-child.first-column-index {
+    padding-left: 20px;
+    width: 32px !important;
+    max-width: 32px !important;
+    min-width: 36px !important;
+  }
+}
+.hl-simple-table th:first-child, .hl-simple-table td:first-child {
+  padding-left: 20px;
+  .cell {
+    padding-left: 0px;
+    padding-right: 20px;
+  }
+}
+.hl-simple-table th:last-child, .hl-simple-table td:last-child {
+  padding-right: 0 !important;
+  .cell {
+    padding-right: 0 !important;
+  }
+}
+.first-column-index {
+  min-width: fit-content !important;
+}
+
+.fx-page-table-v2 .table-page .panel-footer .hl-pagination {
+  padding-top: calc(var(--lg) + 2px);
+  padding-bottom: calc(var(--lg) + 2px);
+}
+
+.hl-simple-table th .cell, .hl-simple-table td .cell {
+  padding-left: 0;
+  padding-right: 12px;
+  .hl-checkbox {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+}
+.hl-simple-table {
+  .fixed-right {
+    padding-left: 12px;
+  }
+
+  .hb-overflow-list {
+    .hl-dropdown.m-l-xs {
+      margin-left: 0 !important;
+      color: var(--text-link) !important;
+    }
+  }
+}
+.hl-simple-table .fixed-left {
+  padding-left: 12px;
+}
+
+.hl-simple-table.bordered  th .cell, .hl-simple-table.bordered td .cell {
+  padding-left: 12px;
+  .hl-checkbox {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+}
+
+.hl-form.search-form-box {
+  .search-form-field .form-content {
+    margin-left: 16px;
+  }
+  .form-label {
+    align-items: center;
+  }
+  .hl-row > * {
+    padding-left: 0 !important;
+  }
+}
+.hb-overflow-list {
+  .hl-dropdown.m-l-xs {
+    i {
+      width: 16px;
+      height: 16px;
+      background: url("@/assets/images/common/operate-more-down-icon.png");
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      svg {
+        display: none;
+      }
+    }
+  }
+}
+
+// 处理表格缺省图片
+.hb-empty {
+  .empty-image {
+    width: 120px !important;
+    height: 125px !important;
+    background: url("@/assets/images/empty-image.png") no-repeat;
+    background-size: 120px 125px;
+    svg {
+      display: none;
+    }
+  }
+  .empty-description {
+    margin-top: 16px;
+    color: #4b4b4b;
+  }
+}
